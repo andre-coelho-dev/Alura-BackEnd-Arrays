@@ -6,7 +6,7 @@ const numero1 = 50;
 const numero2 = 43;
 const numero3 = 12;
 
-// utilizando array
+~~ utilizando array ~~
 const numeros = [50, 43, 12];
 Um array pode ser definido como uma lista ordenada de valores enumerados em que cada valor é chamado de elemento ou item, e cada elemento se localiza numa posição na lista chamada de índice. Vamos destrinchar essa explicação.
 
@@ -22,10 +22,10 @@ Cada valor é chamado de elemento ou item:
 
 Em programação é importante sempre sabermos os nomes dos itens, para facilitar na hora de tirar dúvidas, procurar soluções e ler documentação. Quando trabalhamos com arrays, chamamos de elemento ou item cada um dos valores da lista.
 
-// array com 1 elemento
+~~ array com 1 elemento ~~
 const numero = [5];
 
-// array com 3 elementos
+~~ array com 3 elementos ~~
 const nums = [50, 43, 12];
 Lembrando que cada elemento corresponde a um dado, separados por vírgula. O espaço é opcional, mas facilita a leitura.
 
@@ -58,7 +58,7 @@ Considerando que o array acima tem 4 elementos, podemos dizer que o valor retorn
 A propriedade length é muito útil para trabalharmos com arrays, pois não é preciso saber o número de elementos de antemão e nem tentar contá-los, o que seria impraticável em um programa de computador real.
 
 
-métodos de array
+~~Métodos de array~~
 
 Já utilizamos alguns métodos dos arrays nessa aula, e ainda existem muitos métodos que não vimos. Porém, pode ainda ter ficado a dúvida: o que são os métodos?
 
@@ -66,64 +66,64 @@ Um método é uma função que serve como uma propriedade do array ou de um obje
 
 Existem muitos métodos para conseguir lembrar de todos, mas vamos listar os principais para a aprendizagem. São eles:
 
-concat()
+~~ concat() ~~
 
 Junta dois arrays, colocando o array passado como argumento, logo depois do primeiro. Em português essa operação é conhecida como concatenação.
 Não altera o array no qual foi chamado, então precisamos salvar esse resultado em um novo array.
-filter()
+~~ filter() ~~
 
 Retorna uma lista contando todos os elementos que passaram em um teste, ou seja, uma função escrita por nós.
 Não altera o array onde foi chamado, então precisamos salvar esse resultado em um novo array.
-find()
+~~ find() ~~
 
 Funciona de forma parecida com o filter, porém retorna apenas o primeiro valor que satisfizer o teste, podendo ser uma string ou um número.
-findIndex()
+~~ findIndex() ~~
 
 Funciona igual o find(), mas retorna o índice em vez do elemento, possibilitando usá-lo em outras partes do código.
-lastIndexOf()
+~~ lastIndexOf() ~~
 
 É igual o findIndex() porém começa do último elemento, não no primeiro.
-forEach()
+~~ forEach() ~~
 
 Executa uma função em cada elemento do array de forma individual.
 Não altera o array original e nem retorna um valor, deixando esse trabalho a cargo da função escolhida.
-pop()
+~~ pop() ~~
 
 Retira o último elemento do array.
 Altera o array original removendo o elemento.
-shift()
+~~ shift() ~~
 
 Retira o primeiro elemento do array.
 Altera o array original removendo o elemento e trocando o índice de todos os elementos para um a menos do que eram, o índice 1 passa a ser o 0, o 2 passa a ser o 1, e assim por diante.
-push()
+~~ push() ~~
 
 Adiciona o elemento passado como parâmetro do array, porém na última posição.
 Altera o array original com o novo valor.
-unshift()
+~~ unshift() ~~
 
 Funciona igual ao push(), porém adiciona na primeira posição e acaba trocando o índice de todos os elementos.
 Altera o array original com o novo valor.
-reduce()
+~~ reduce() ~~
 
 Utiliza uma função definida pelo usuário em cada um dos elementos, guardando o resultado em uma variável que pode ser acessada dentro da função que foi definida, retornando um único valor no final, reduzindo o array para um único valor.
-reduceRight()
+~~ reduceRight() ~~
 
 Funciona igual o reduce() porém começa do final do array e segue até o início.
-reverse()
+~~ reverse() ~~
 
 Inverte a ordem dos elementos do array, então o primeiro vira o último, o segundo o penúltimo e assim por diante.
-slice()
+~~ slice() ~~
 
 Copia uma parte do array para outro array.
-sort()
+~~ sort() ~~
 
 Organiza o array de acordo com a classificação Unicode, onde os números vêm antes das letras, porém não funciona corretamente para números, onde temos que definir uma função que irá auxiliar o comando.
-splice()
+~~ splice() ~~
 
 Consegue remover, um ou mais elementos consecutivos caso o segundo parâmetro tenha um valor maior que 0, e incluir um ou mais elementos a partir de um índice escolhido.
 
 
-arrays vazios
+~~Arrays vazios~~
 PRÓXIMA ATIVIDADE
 
 Até agora trabalhamos com arrays que representam listas de dados (notas de alunos em uma escola). Mas o que acontece se declaramos um array sem nenhum valor na lista?
@@ -179,7 +179,7 @@ Conferindo os resultados:
 O JavaScript manteve as posições vazias e adicionou o 50 ao final do array. Após a execução, ele passou a ter 4 posições, mas somente um elemento (o número 50). Chamamos este tipo de estrutura de array esparso e é importante lembrar deste comportamento dos arrays em JavaScript enquanto trabalhamos.
 
 
-Revisando conceitos
+~~Revisando conceitos~~
 
 Você viu conceitos sobre os arrays de forma geral, como criar e acessar seus valores, e também peculiaridades que ocorrem no JavaScript. Com isso, marque as afirmações corretas a respeito dessa estrutura de dados:
 
@@ -223,3 +223,129 @@ Como utilizar a propriedade .length:
 Todos os arrays do JavaScript possuem essa propriedade, que indica a quantidade de elementos do array.
 Como utilizar os métodos .push() e .pop():
 Vimos como realizar as primeiras alterações em um array, como adicionar um novo item ao final ou remover o último item.
+
+
+~~Arrays~~
+
+~~consultando a documentação~~
+PRÓXIMA ATIVIDADE
+
+Em caso de dúvidas sobre como funciona um método de array, você sempre pode consultá-lo na documentação oficial da MDN, como por exemplo os métodos push e slice.
+
+Por exemplo, na página do método push, vemos a seguinte descrição:
+
+O método push() adiciona um ou mais elementos ao final de um array e retorna o novo comprimento desse array.
+
+Exatamente como vimos em aula, a documentação diz que o método push altera o array original, além de informar seu valor de retorno (que não foi necessário para nós no desafio).
+
+Na página do método slice, vemos a seguinte descrição:
+
+O método slice() retorna uma cópia de parte de um array a partir de um subarray criado entre as posições início e fim (fim não é necessário) de um array original. O array original não é modificado.
+
+Novamente, podemos consultar rapidamente o que o método faz, seu valor de retorno e se ele altera o array original.
+
+A documentação também fornece informações bastante detalhadas sobre cada recurso da linguagem; você não precisa entender tudo que é mencionado em cada página (e no início de desenvolvimento, você provavelmente irá se deparar com muitos termos novos), mas ela é uma excelente fonte de consultas. Além disso, ela fornece vários exemplos práticos onde um método pode ser útil. A documentação será muito importante na sua jornada de desenvolvimento!
+
+
+~~Para saber mais: matrizes~~
+PRÓXIMA ATIVIDADE
+
+Durante a aula vimos as listas com duas dimensões, ou seja, arrays que contêm arrays, podendo ter um único array ou vários dentro do principal.
+
+const nomes = ["Ana", "Juliana", "Leonardo"];
+const idades = [30, 35, 28];
+const faculdade = [false, true, true];
+
+const funcionarios = [nomes, idades, faculdade];
+
+O array funcionarios é um array de duas dimensões. Há 3 arrays dentro dele, e para acessar os valores em funcionarios precisamos de 2 colchetes “[ ] [ ]”. O primeiro colchete será usado para escolher qual dos 3 arrays dentro de funcionarios será acessado. podendo ser:
+
+0 -> nomes
+1 -> idades
+2 -> faculdade
+O segundo colchete será usado para acessar a informação dentro do array escolhido.
+
+Outra forma de chamar os arrays de 2 dimensões é matrizes. Matrizes podem ser visualizadas como uma tabela do Excel, onde cada campo representa um elemento, e precisamos de uma linha e uma coluna para acessar um campo. Então, as linhas são o primeiro colchete e a coluna o segundo colchete.
+
+Arrays têm seu principal uso quando temos uma grande quantidade de informações com propósitos similares, como as notas de um aluno. Matrizes, por sua vez, são utilizadas quando precisamos de vários arrays similares ou com informações ligadas às outras, como as notas de uma classe com vários alunos.
+
+As matrizes não são limitadas a 2 dimensões, podendo ter mais dimensões, de modo que cada dimensão é representada por um colchete. Porém, tome cuidado para não se perder dentro delas, já que se uma matriz passa a ter, por exemplo, 4 ou 5 dimensões, se torna bem difícil saber exatamente o que está sendo acessado e começamos a ter problemas para fazer a manutenção do código.
+
+~~Faça como eu fiz: concatenando arrays e dados~~
+PRÓXIMA ATIVIDADE
+
+Durante a aula usamos o método concat() para unir (concatenar) arrays gerando um novo com o resultado da concatenação. Neste caso, o método funcionou da seguinte forma:
+
+array1.concat(array2)
+
+Logo, o método foi utilizado com um array (no caso acima, array1) e recebeu como parâmetro outro array (array2). O resultado foi um novo array com todos os elementos de array1 e array2; isso acontece pois, quando o concat() recebe um array como parâmetro, são apenas os elementos dentro dele que são concatenados, e não o array em si.
+
+E se tentarmos usar esse método passando como parâmetro outro tipo de dado, que não seja array? Abra um arquivo index.js em seu computador e execute o seguinte código:
+
+const arrayOriginal = ["Maria", "Carlos", "Eduardo", "Samanta"]
+const arrayConcat = arrayOriginal.concat("André", "Fernanda")
+
+console.log(arrayConcat)
+console.log(arrayOriginal)
+
+O resultado deve ser:
+
+[ 'Maria', 'Carlos', 'Eduardo', 'Samanta', 'André', 'Fernanda' ]
+[ 'Maria', 'Carlos', 'Eduardo', 'Samanta' ]
+
+Com o exemplo acima, vemos que o JavaScript concatena o array principal e as strings de texto passadas como parâmetro para criar outro array, mantendo o original sem alterações.
+
+Vamos fazer um novo teste, mas passando mais de um array como parâmetro.
+
+const arrayOriginal = ["Maria", "Carlos", "Eduardo", "Samanta"]
+const arrayConcat = arrayOriginal.concat(["André", "Fernanda"], ["Ricardo", "Ana"], ["Marcelo", "Bia"])
+
+console.log(arrayConcat)
+console.log(arrayOriginal)
+
+O resultado é:
+
+[ 'Maria', 'Carlos', 'Eduardo', 'Samanta', 'André', 'Fernanda', 'Ricardo', 'Ana', 'Marcelo', 'Bia' ]
+[ 'Maria', 'Carlos', 'Eduardo', 'Samanta' ]
+
+Podemos passar mais de um array como parâmetro para que seus elementos sejam concatenados em um único array, junto com o que está sendo chamado com o método (no caso, arrayOriginal.
+
+Como um último teste, vamos ver o que acontece se um dos parâmetros for um array com dois elementos, um número e um array:
+
+const arrayOriginal = [50, 60, 70]
+const arrayConcat = arrayOriginal.concat([80, [90, 100]])
+
+console.log(arrayConcat)
+console.log(arrayOriginal)
+
+O resultado no terminal agora é:
+
+[ 50, 60, 70, 80, [ 90, 100 ] ]
+[ 50, 60, 70 ]
+
+Vimos anteriormente que, quando recebe um array como parâmetro, concat() vai concatenar apenas os elementos. Porém, este método não extrai os elementos do array de forma recursiva; ou seja, não vai extrair os elementos de arrays que estejam “aninhados”. Dessa forma, 80 foi extraído do array com sucesso, porém 90 e 100 não, o método considerou [90, 100] como um único elemento.
+
+concat() é um método útil quando não se deseja alterar o array original, e sim fazer uma cópia alterada. Caso isso não seja necessário, considere utilizar push() ou splice() para inserir novos elementos ou fazer alterações no array original.
+
+
+~~Acessando elementos de uma matriz~~
+
+Podemos criar uma lista de duas dimensões (ou matriz) com o seguinte código:
+
+const funcionarios = [
+  ["Ana", "Juliana", "Leonardo"],
+  [30, 35, 28]
+];
+
+console.log(`${funcionarios[0][2]} tem idade ${funcionarios[1][2]}`)
+
+Para imprimir o nome, acessamos a lista de nomes escrevendo funcionarios[0] e, logo em seguida, adicionamos [2] para acessar o nome da posição 2. Para imprimir a idade, acessamos a lista de idades escrevendo funcionarios[1] e, logo em seguida, adicionamos [2] para acessar a idade da posição 2.
+
+O que aprendemos?
+PRÓXIMA ATIVIDADE
+
+Nesta aula aprendemos como:
+Separar um array em partes com slice() (utilizamos para obter dois novos arrays a partir de um).
+Remover e incluir novos elementos em um array com splice(); sendo que esse método permite remover elementos de qualquer posição do array. Além disso, podemos incluir um novo elemento no local dos removidos.
+Concatenar elementos em um único array com concat(); sendo que essa é uma forma facilitada de juntar dois arrays.
+Trabalhar com arrays de duas dimensões. Vimos que uma lista também pode guardar outras listas! Para acessar elementos das listas mais internas, devemos informar primeiro os índices das mais externas e depois os das mais internas, como por exemplo com funcionarios[0][2].
