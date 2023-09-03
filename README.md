@@ -479,3 +479,111 @@ media = media/notasGerais.length
 console.log(media)
 
 Com isso usamos o for para passar por todos os elementos da matriz, e nesse caso, calcular a média dos valores deles.
+
+
+Para saber mais: possibilidades do for
+PRÓXIMA ATIVIDADE
+
+A estrutura for tem uma sintaxe mais complexa que o for of, com mais expressões, mas por causa disso fornece um maior leque de possibilidades de acordo com a nossa necessidade.
+
+Por exemplo, podemos percorrer um array do fim ao início:
+
+const numeros = [100, 200, 300, 400, 500, 600];
+
+for (let i = numeros.length - 1; i >= 0; i--) {
+  console.log(numeros[i]);
+}
+
+
+Declaramos o valor inicial da variável de controle como o valor da última posição do array (numeros.length - 1); realizamos um decremento (i--) ao invés de um incremento e a condição de execução é i >= 0. Ou seja, nesse caso, a variável i começará do valor 5 e irá até 0.
+
+Ao executar o código, no terminal aparecerá:
+
+600
+500
+400
+300
+200
+100
+
+
+Outra possibilidade é alterar a quantidade incrementada ou decrementada, utilizando o mesmo código acima, mas alterando o decremento para i -= 2. Então, teremos o seguinte:
+
+const numeros = [100, 200, 300, 400, 500, 600];
+
+for (let i = numeros.length - 1; i >= 0; i -= 2) {
+  console.log(numeros[i]);
+}
+
+
+O valor de i será diminuído de 2 em 2 a cada iteração (lembrando que a expressão i -= 2 equivale a i = i - 2). Assim, os valores de i serão 5, 3 e 1, e no terminal aparecerá:
+
+600
+400
+200
+
+
+Também temos controle sobre a condição de execução, então se alterarmos esse último código para ter a condição numeros[i] > 300, teremos o seguinte:
+
+const numeros = [100, 200, 300, 400, 500, 600];
+
+for (let i = numeros.length - 1; numeros[i] >= 300; i -= 2) {
+  console.log(numeros[i]);
+}
+
+
+E no terminal aparecerá:
+
+600
+400
+
+
+Por fim, até agora utilizamos a estrutura for apenas para percorrer arrays, mas ela pode ser utilizada para repetir qualquer instrução conforme a necessidade. Por exemplo, podemos criar dinamicamente um array com todos os números pares de 0 a 100:
+
+const numerosPares = [];
+
+for (let i = 0; i <= 100; i += 2) {
+  numerosPares.push(i);
+}
+
+console.log(numerosPares);
+
+
+No terminal aparecerá:
+
+[
+   0,  2,  4,  6,  8, 10,  12, 14, 16, 18, 20,
+  22, 24, 26, 28, 30, 32,  34, 36, 38, 40, 42,
+  44, 46, 48, 50, 52, 54,  56, 58, 60, 62, 64,
+  66, 68, 70, 72, 74, 76,  78, 80, 82, 84, 86,
+  88, 90, 92, 94, 96, 98, 100
+]
+
+
+Na maioria dos casos, você não precisará realizar repetições mais complexas como essas, mas nunca se sabe, certo? Por isso, conhecer os recursos de uma linguagem e suas possibilidades pode ser uma “mão na roda” no futuro.
+
+Como vimos, para percorrer todos os elementos de um array e do início ao fim, o for of fornece uma sintaxe mais sucinta que o for.
+
+Revisando for e for of
+PRÓXIMA ATIVIDADE
+
+No JavaScript há diversas formas de se realizar os loops, ou laços de repetição. Você aprendeu sobre o for e o for of e suas diferenças.
+
+Ao percorrer um array com o for of, sempre passamos por todos os elementos, do primeiro até o último.
+=> Não é necessário criar variáveis de controle, incrementos e condições de execução como no for. O for of fornece uma sintaxe mais sucinta para percorrermos um array para o caso que geralmente queremos fazer: percorrer todos os elementos do início ao fim.
+
+Na estrutura for, somos responsáveis por criar uma variável de controle, modificá-la ao final de cada iteração e estabelecer uma condição de execução adequada.
+=> Essas ações representam as três expressões que devemos passar para o for.
+
+O que aprendemos?
+PRÓXIMA ATIVIDADE
+
+Nesta aula vimos como:
+Utilizar os métodos includes() e indexOf():
+O includes() retorna true ou false, dependendo se o valor passado como parâmetro está presente ou não no array. O indexOf() retorna a posição no array do valor passado como parâmetro. Utilizamos esses dois métodos em conjunto para primeiro verificar se um aluno estava presente em uma lista, e depois obter sua posição para buscar sua nota em outra lista.
+Desestruturar um array:
+Você aprendeu a sintaxe de desestruturação, disponível desde o ES6 (EcmaScript 6), que nos permite criar várias novas variáveis ao mesmo tempo a partir dos elementos de um array.
+Utilizar a estrutura for e entender seu funcionamento:
+O for é constituído de três expressões: criação da variável de controle; condição de execução; modificação da variável de controle. Essas três expressões juntas definem quantas vezes o bloco do for será executado.
+Utilizar a estrutura for of e entender a diferença em relação ao for:
+O for of sempre é utilizado para percorrer todos os elementos de um array, do início ao fim. Para esses casos, o for of é mais conciso que o for.
