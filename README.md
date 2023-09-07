@@ -576,7 +576,6 @@ Na estrutura for, somos responsáveis por criar uma variável de controle, modif
 => Essas ações representam as três expressões que devemos passar para o for.
 
 O que aprendemos?
-PRÓXIMA ATIVIDADE
 
 Nesta aula vimos como:
 Utilizar os métodos includes() e indexOf():
@@ -587,3 +586,392 @@ Utilizar a estrutura for e entender seu funcionamento:
 O for é constituído de três expressões: criação da variável de controle; condição de execução; modificação da variável de controle. Essas três expressões juntas definem quantas vezes o bloco do for será executado.
 Utilizar a estrutura for of e entender a diferença em relação ao for:
 O for of sempre é utilizado para percorrer todos os elementos de um array, do início ao fim. Para esses casos, o for of é mais conciso que o for.
+
+
+Aula 4 - Funções callback
+
+Parâmetros do forEach
+
+Na aula vimos como podemos usar o forEach para acessar o valor de todos os elementos em um array.
+
+Uma função que recebe um elemento.
+-> Essa função tem o nome de callback e vai ser executada para cada elemento do array, sendo que pode receber de 1 a 3 argumentos; o elemento, o índice e o array atual, respectivamente
+
+
+Para saber mais: for...of vs callbacks
+
+Até agora vimos várias formas de fazer o que parece ser a mesma coisa: for, for…of, forEach()... Com tantas opções, como posso escolher qual usar no meu código?
+
+Antes, vamos dar uma olhada em cada um deles:
+
+for
+A forma mais “clássica” de se efetuar um loop em JavaScript e em várias outras linguagens, o for é muito conveniente pois pode ser utilizado com qualquer tipo de iterável e é construído de uma forma que deixa muito claro quais são todas as “fases” de cada loop - também chamamos um loop de laço de repetição ou de iteração.
+
+O que é um “iterável”? Além de arrays, strings, sets (conjuntos) e maps (mapas ou dicionários) são considerados iteráveis. Não vamos falar dos dois últimos tipos neste curso, mas se você tiver interesse em saber mais sobre conjuntos, dicionários e outras estruturas de dados, pode dar uma olhada neste artigo; o que precisamos saber agora é que um iterável, aqui, representa uma sequência de elementos que pode ser percorrida (ou seja, iterada) utilizando ferramentas próprias para isso. É importante fazer uma distinção entre array e iterável, pois nem todo método que funciona em um array vai funcionar em outros iteráveis - veremos isso em seguida.
+
+const lista = [1, 2, 3, 4, 5];
+
+for (let indice = 0; indice < lista.length; indice++) {
+ console.log(lista[indice]); 
+}
+
+O que queremos dizer com “deixar claro as fases da iteração” pode ser visto no exemplo acima: a expressão entre parênteses () após a palavra-chave for. Dentro da expressão temos:
+
+uma variável contadora, que é criada antes do início do laço (let indice);
+uma expressão de teste (indice < lista.length), que é executada antes de cada iteração e que verifica se o código dentro do bloco {} deve ou não ser executado;
+por último, uma expressão que é executada ao final de cada laço, normalmente um incremento (++) ou decremento (--) da variável contadora.
+Ou seja: como as fases de cada laço são declaradas de forma explícita, elas também podem ser alteradas conforme a necessidade do código, o que faz com que o for seja muito versátil e possa ser utilizado em casos específicos, quando os outras formas de sintaxe mais reduzida (como os que vamos ver em seguida) não atendem. O laço pode ser decremental ao invés de incremental (percorrer um array de trás para frente), a variável contadora pode receber outro valor como let indice = 2 ou let indice = outraVariavel + 1 (desde que esse valor seja avaliado como número), a condição de teste pode ser o tamanho do array como no exemplo, ou outro (indice < lista.length - 1) e o incremento ou decremento ao final do laço pode receber qualquer operador aritmético ou ser o resultado de uma operação, como indice = indice + 2 ou indice *= 2.
+
+É possível, inclusive, usar o for para executar algoritmos mais complexos, que também não seriam possíveis com outros métodos, por exemplo:
+
+const lista = [1, 2, 3, 4, 5];
+
+for (let i = 0, j = 0; i < lista.length; i++, j++) {
+ console.log(lista[i] + j); 
+}
+
+//1
+//3
+//5
+//7
+//9
+
+Ainda há outras formas de se trabalhar com as condições do for, que você pode conferir na documentação sobre for no MDN.
+
+for…of
+Adicionado às funcionalidades do JavaScript na versão ES6, é um tipo de laço de repetição diferente do for tradicional, embora utilize a mesma palavra-chave:
+
+const lista = [1, 2, 3, 4, 5];
+let soma = 0;
+
+for (let elemento of lista) {
+ soma += elemento;
+}
+
+console.log(soma) //15
+
+O for…of pode ser executado utilizando qualquer tipo de iterável: além de arrays, strings, sets (conjuntos) e maps (mapas ou dicionários) são considerados objetos iteráveis. Não vamos falar dos dois últimos tipos neste curso, mas se você tiver interesse em saber mais sobre conjuntos, dicionários e outras estruturas de dados, pode dar uma olhada neste artigo; o que precisamos saber agora é que um iterável, aqui, representa uma sequência de elementos que pode ser percorrida (ou seja, iterada) utilizando o for…of. É importante fazer esta distinção entre array e iterável, pois nem todo método ou declaração que funciona em um array vai funcionar em outros iteráveis.
+
+Olhando assim, o for…of se parece bastante com o for: temos a declaração de uma variável (let elemento) seguida da palavra-chave of e um identificador do iterável que será percorrido (no caso acima é um array mesmo, lista).
+
+A diferença principal e mais visível entre o for e o for…of é que o anterior dá muito mais controle sobre de que forma o laço de repetição ocorre. Por exemplo, vimos que no for é possível manipular de forma mais fina todas as condicionais; já no for…of as condições são mais “fixas”: elemento se refere a cada elemento (ou item) do array e o loop sempre ocorre de forma sequencial, do primeiro elemento até o último.
+
+Em contrapartida, a sintaxe simplificada e mais “legível” para pessoas faz com que o uso do for…of seja mais prático do que o for, pois laços de repetição mais simplificados, que percorrem um iterável do primeiro ao último elemento e executam o código do bloco a cada iteração, são muito mais corriqueiros.
+
+forEach()
+Ao contrário de for e for…of, o forEach() é um método do objeto Array.
+
+O que é um método? Em programação, chamamos de método uma função que é propriedade de um objeto. A documentação do MDN traz alguns exemplos de métodos, mas você vai poder conferir com mais detalhes o que são objetos e suas propriedades quando fizer o curso de fundamentos do JavaScript: Objetos. Por agora, basta saber que quando dizemos que determinada função - por exemplo, forEach() é um método de array, significa que esta função foi desenvolvida para trabalhar apenas com esse tipo de dado - no caso, com arrays.
+
+O forEach(), assim como outros métodos de array que vimos ou ainda vamos ver durante esta aula, também cumprem o papel de iterar arrays, porém com funcionalidades e retornos bem definidos. No caso do forEach(), apesar da sintaxe bem diferente, podemos utilizar este método como o for ou o for…of, pois ele vai executar as instruções que forem passadas para cada elemento iterado, sem retornar nenhum dado.
+
+O forEach(), assim como alguns outros métodos de array do JavaScript que estamos vendo no curso, utiliza a abordagem funcional de funções callback para executar o código necessário a cada elemento iterado no laço:
+
+const lista = [1, 2, 3, 4, 5];
+let soma = 0;
+
+lista.forEach(numero => soma += numero);
+console.log(soma) //15
+
+Como visto acima, o método forEach() recebe uma função como parâmetro, e esta função por sua vez utiliza como parâmetro cada um dos elementos do array. A lógica interna do forEach() vai manejar a iteração do primeiro ao último item do array e fazer com que o código definido dentro da função callback (no caso, apenas um incremento soma += numero) seja executado a cada iteração.
+
+O mesmo código também poderia ser escrito da seguinte forma, um pouco mais extensa porém mais legível:
+
+lista.forEach(numero => {
+ soma += numero
+});
+
+Ou ainda, utilizando a palavra-chave function ao invés de arrow functions; essa forma de escrita não é usual, pois quando usamos funções callback o padrão adotado é o de arrow functions, mas serve para o propósito de legibilidade:
+
+lista.forEach(function (numero) {
+ soma += numero
+});
+
+Assim, vemos que o forEach() não retorna nenhum tipo de valor, apenas executa o que está dentro do bloco da função callback, assim como for e for…of. Porém também não é possível modificar a forma que a iteração será feita (é sempre do primeiro elemento do array ao último) e não há forma de interromper o laço dada alguma condição, como o break funcionaria para um for normal.
+
+O forEach() também não pode ser utilizado com qualquer iterável, apenas com arrays e também não pode ser utilizado de forma assíncrona - um tema um pouco mais avançado e que não trabalharemos nesse curso, mas que você pode conferir neste artigo se tiver curiosidade pra começar a aprender.
+
+E quando devo utilizar um ou outro?
+A resposta, como em muitas coisas na programação, é depende!
+
+Atualmente, em termos de performance - ou seja, qual código é executado de forma mais rápida pelo computador e consumindo menos recursos de memória - tanto os laços com for como o forEach() não tem diferenças significativas, embora ainda possam ocorrer exceções, como no caso de versões muito antigas de navegadores e/ou manipulação de arrays muito longos. Mas no momento em que desenvolvemos este curso a questão de performance não é tão definidora na maior parte dos casos, pois os interpretadores do JavaScript já evoluíram para trabalhar tão bem com funções callbacks quanto com iteradores.
+
+-> O forEach() utiliza callbacks assim como map(), filter() e alguns outros métodos de array, o que facilita a utilização desses métodos em conjunto ou a troca de um para outro dependendo da necessidade do código ou de uma refatoração. Alguns guias de estilo de código desenvolvidos pela comunidade, como o famoso guia do AirBNB, indica preferencialmente o uso do forEach() no lugar do for…of para manter a consistência no estilo do código.
+
+-> O for…of, mais recente que o forEach(), não é um método de array e sim um iterador, assim como o for. Ou seja, vai trabalhar com outros tipos de dados iteráveis além de arrays, com uma sintaxe mais simplificada que a do for.
+
+Como em ambos os casos não há retorno, somente a execução do código que está dentro do bloco - os colchetes {} do for…of ou a função callback do forEach(), você pode utilizar as ferramentas da seguinte forma:
+
+-> forEach() para trabalhar com arrays da forma mais corriqueira - percorrendo do primeiro ao último elemento, sem alterar a condição de parada, e também para manter a coesão do estilo quando em conjunto com outros métodos de array como map, filter e etc;
+for…of em caso de iteráveis (dicionários, conjuntos e outras estruturas de dados) ou de arrays quando for necessário o uso de programação assíncrona e/ou dar condições de saída do laço (por exemplo, com o uso de break);
+for para casos em que seja necessário manipular de forma mais fina as fases do laço (condição inicial, condição de parada e incremento).
+
+
+Para saber mais: strings são arrays?
+PRÓXIMA ATIVIDADE
+
+Durante essa aula, utilizamos um método específico para strings, o toUpperCase(), para alterar todos os caracteres de cada string do array para letras maiúsculas. Mas e se quisermos acessar somente uma letra? Poderíamos usar um loop para percorrer todas as letras de um string?
+
+“String”, além de ser o tipo de dado usado para representar textos, também se define como uma sequência ordenada de caracteres!
+
+“Lista ordenada” (ou sequência) também é uma forma de definir arrays, certo? Então podemos pensar que, por baixo dos panos, strings são armazenadas em memória da seguinte forma:
+
+const nome = "Alura";
+// ["A", "l", "u", "r", "a"]
+
+Ou seja, é possível utilizar alguns métodos de array e laços de repetição para acessar e alterar strings:
+
+const nome = "Alura";
+let nomeMaiusculas = "";
+
+for (let i = 0; i < nome.length; i++) {
+ nomeMaiusculas += nome[i].toUpperCase()
+}
+console.log(nomeMaiusculas) //ALURA
+
+const nomedoCurso = "Fundamentos de JS";
+const nomeDaPlataforma = " Alura"
+
+const nomeCompleto = nomedoCurso.concat(nomeDaPlataforma)
+console.log(nomeCompleto)  //Fundamentos de JS Alura
+
+Você pode conferir a lista completa de métodos de string na documentação do MDN. Confira na lista de links na seção à esquerda da tela e veja se consegue identificar alguns que já utilizamos nas aulas para trabalhar com arrays.
+
+forEach e map
+
+Agora já vimos mais sobre as funções callback e o método map() que utiliza essas funções, também vimos anteriormente sobre o método forEach().
+
+O retorno do método.
+-> Enquanto o método forEach não tem um retorno, o método map() pode retornar um array se a função callback retornar algum valor.
+
+
+Faça como eu fiz: métodos callback
+PRÓXIMA ATIVIDADE
+
+Nesta aula introduzimos um novo conceito, o de funções callback.
+
+O termo callback se refere à função que é “chamada de volta” dentro de outra função. Após o lançamento do ES6 (também conhecido como EcmaScript 2015) o uso desse tipo de método foi se consolidando, então é importante entender como utilizá-lo.
+
+O JavaScript moderno traz vários métodos e funções callback diversos, não apenas para uso com arrays. Porém a estrutura da função se mantém similar.
+
+Crie um novo arquivo index.js e crie uma array de números:
+
+const arrayNums = [1, 2, 3, 4]
+
+Vamos utilizar o map() para multiplicar cada um dos valores nesse array por 10 e retornar um novo array com os resultados. Antes de escrevermos o map() para isso, vamos criar a função callback; ou seja, a função que vamos chamar (call) de volta quando executarmos o método map():
+
+function multiplicaPorDez(num) {
+ return num * 10
+}
+
+Agora podemos chamar o map() para fazer a operação:
+
+const arraySomada = arrayNums.map(multiplicaPorDez)
+
+console.log(arraySomada)
+
+O resultado no terminal deve ser [ 10, 20, 30, 40 ].
+
+IMPORTANTE: Observe a função multiplicaPorDez. Quando criamos esta função, especificamos que ela precisa receber o parâmetro (num) para ser executada corretamente. No entanto, quando ela está sendo chamada dentro de arrayNums.map(), não passamos nenhum parâmetro e mesmo assim funcionou. O que aconteceu aqui?
+
+Para entender melhor, vamos reescrever o código, passando a função multiplicaPorDez(num) direto como parâmetro do map():
+
+const arraySomada = arrayNums.map(num => num * 10)
+
+console.log(arraySomada)
+
+No código acima, substituímos uma função externa e nomeada (a função multiplicaPorDez), por uma arrow function anônima que existe somente dentro do map(). Mas esta função anônima também tem um parâmetro, num, que representa cada um dos elementos do array que será iterado pelo map().
+
+Por isso, quando utilizamos uma função externa como callback de um map(), não foi necessário passar um parâmetro. O map() executa automaticamente o bloco de código da função (nesse caso, num * 10) para cada elemento do array.
+
+Ambos os casos de uso são válidos; as funções externas permitem reaproveitamento de código, mas há vários momentos em que isso não será necessário.
+
+Para o JavaScript, qualquer função que seja chamada como argumento de outra é considerada uma função callback, não apenas em caso de métodos. Você pode ver outros exemplos no MDN.
+
+O que aprendemos?
+PRÓXIMA ATIVIDADE
+
+Nesta aula vimos:
+Como utilizar o forEach:
+Aprendemos mais uma forma de iterar sobre arrays, dessa vez com um método próprio deles. O forEach recebe uma função callback que será executada para cada item do array.
+Diferentes formas de utilizar funções callback:
+Podemos utilizar funções anônimas (como arrow functions) diretamente como funções callback, ou então criar funções de forma externa e utilizá-las no parâmetro.
+Como utilizar o map:
+O map também aceita funções callback, assim como o forEach, e é adequado para quando queremos "reescrever" os valores de um array, sem modificar o array original. Um novo array é criado com os valores reescritos.
+
+Aula 5 - Avançando com arrays
+
+Retorno do filter
+PRÓXIMA ATIVIDADE
+
+Vimos como utilizar o método filter para retornar um array com apenas alguns elementos do array principal através de uma função callback.
+
+Um booleano.
+-> Quando a função callback retorna verdadeiro, ou true, o elemento é adicionado no array de retorno, e quando ela retorna falso, ou false, o elemento é descartado.
+
+Faça como eu fiz: estrutura do reduce()
+
+Durante a aula trabalhamos com o método reduce() para “reduzir” uma lista de números para um único valor. Este método trabalha com parâmetros um pouco diferentes dos outros que vimos durante o curso. Por isso, vamos destrinchar o exemplo da aula para entender melhor as partes do código.
+
+Em seu editor, crie um arquivo index.js e execute o seguinte código:
+
+const numeros = [43, 50, 65, 12]
+
+const soma = numeros.reduce((acc, atual) => atual + acc, 0)
+
+console.log(soma) //170
+
+O código acima é muito parecido com o que foi feito durante a aula. É importante notar que:
+
+O método reduce() está trabalhando com dois parâmetros. O primeiro é a função callback obrigatória para retornar o cálculo e o segundo parâmetro é um número que representa o valor inicial do acumulador – no caso, 0.
+A função callback foi escrita diretamente dentro do reduce(), e esta função também está recebendo dois parâmetros, ambos obrigatórios: o valor acumulado e o valor atual.
+A função callback foi escrita na forma de arrow function; nesse caso, quando só temos uma linha de instrução dentro da função (atual + acc) não precisamos usar chaves e nem da palavra-chave return.
+Caso você tenha mais de uma linha de instrução dentro de uma arrow function, as chaves {} e a palavra-chave return voltam a ser necessários.
+
+Vamos reescrever o reduce() de uma forma um pouco mais extensa para separar melhor as partes do código:
+
+const soma = numeros.reduce(function (acc, atual) {
+ return atual + acc
+}, 0)
+
+Vendo o código acima, percebe-se melhor onde começam e terminam cada um dos parâmetros do reduce(): o primeiro parâmetro, uma função e o segundo, um número.
+
+Uma terceira forma de reescrever seria escrevendo a função callback fora do reduce():
+
+function operacaoNumerica(acc, atual) {
+ return atual + acc
+}
+
+const soma = numeros.reduce(operacaoNumerica, 0)
+
+O reduce() roda o loop no array “por baixo dos panos”, executando para cada elemento a instrução passada na função operacaoNumerica.
+
+No dia a dia, a forma que utilizamos no vídeo é a mais usual. Porém, durante seus estudos, você pode praticar da forma que achar mais clara.
+
+É importante lembrar que cada método pode aceitar receber parâmetros diferentes! Alguns são obrigatórios, outros opcionais. Consulte sempre a documentação da linguagem.
+
+
+Para saber mais: valor ou referência?
+
+No vídeo anterior, você viu como clonar um array de forma apropriada no JavaScript. Atribuir diretamente um array para outro com o sinal = faz com o que o JavaScript entenda que é como se eles fossem o mesmo array. Para evitar esse comportamento, devemos criar um array totalmente novo, com a ajuda do spread operator ... (ou operador de espalhamento).
+
+Porém, esse comportamento não acontece com strings, números e booleanos, que são tipos primitivos do JavaScript.
+
+Considere o seguinte código:
+
+let num1 = 10;
+let num2 = num1;
+
+num2 += 5;
+num1 += 1;
+
+console.log(`Num1 é ${num1}. Num2 é ${num2}`);
+
+Ao executar o código, teremos a frase “Num1 é 11. Num2 é 15”. Ou seja, com o código let num2 = num1, o JavaScript entende que queremos criar uma cópia de num1, e cria uma nova variável, com seu próprio espaço na memória guardando seu valor. Então, ao modificar uma das variáveis, a outra não é alterada.
+
+Esse comportamento de copiar um valor primitivo, o atribuindo a uma nova variável, é chamado de atribuição por valor e acontece somente com os tipos primitivos do JavaScript.
+
+O mesmo comportamento ocorre quando trabalhamos com parâmetros de funções. Veja o seguinte exemplo:
+
+let numeroOriginal = 10;
+
+function alteraNumero(numero) {
+  numero = 50;
+
+  console.log(`numero do parâmetro é ${numero}. numeroOriginal é ${numeroOriginal}`);
+}
+
+alteraNumero(numeroOriginal);
+
+Executando o código, teremos a frase “numero do parâmetro é 50. numeroOriginal é 10”. Ao chamar a função passando numeroOriginal como parâmetro, foi feita uma cópia de seu valor para ser utilizada como o parâmetro numero dentro da função. Dessa forma, mesmo alterando numero dentro da função, numeroOriginal permanece inalterado.
+
+Mas como você viu, com arrays não funciona bem dessa forma, afinal, eles não são um tipo primitivo. Considere o exemplo utilizado no vídeo passado:
+
+const notas = [7, 7, 8, 9];
+
+const novasNotas = notas;
+
+novasNotas.push(10);
+
+console.log(`As novas notas são ${novasNotas}`);
+console.log(`As notas originais são ${notas}`);
+
+A partir do código const novasNotas = notas, o JavaScript entende que novasNotas e notas passam a ser o mesmo array, e agora eles apontam para o mesmo espaço na memória. Como estamos lidando com dados mais complexos, o JavaScript faz isso por padrão para otimizar memória e performance, em vez de realizar uma cópia do array em toda nova atribuição.
+
+Uma atribuição de um array é chamada de atribuição por referência, pois nela é passada a referência do array em si, e não uma cópia de seu valor.
+
+O mesmo comportamento ocorre quando trabalhamos com parâmetros de funções. Veja o código abaixo:
+
+const arrayOriginal = [7, 7, 8, 9];
+
+function alteraArray(array) {
+  array.push(10);
+
+  console.log(`array do parâmetro é ${array}`);
+  console.log(`arrayOriginal é ${arrayOriginal}`);
+}
+
+alteraArray(arrayOriginal);
+
+Executando o código, teremos essa saída:
+
+array do parâmetro é 7,7,8,9,10
+arrayOriginal é 7,7,8,9,10
+
+Após passar arrayOriginal como parâmetro de alteraArray, o utilizamos como o parâmetro array. O código array.push(10) alterou ambos os arrays, assim como o que houve no exemplo que fizemos a atribuição. Ou seja, novamente, foi passada a referência do array em si, e não uma cópia dele.
+
+De forma análoga à solução do vídeo, caso queiramos passar uma cópia do array e não sua referência, trocamos o código alteraArray(arrayOriginal) por alteraArray([...arrayOriginal]). Assim, a saída será:
+
+array do parâmetro é 7,7,8,9,10
+arrayOriginal é 7,7,8,9
+
+Para saber mais: estrutura Set
+PRÓXIMA ATIVIDADE
+
+Você viu que a estrutura Set é muito semelhante aos arrays, mas possui diferentes métodos e a interessante regra de que seus elementos não podem se repetir. Utilizamos essa regra ao nosso favor para eliminar as duplicatas de um array, convertendo-o para um Set e de volta para um array.
+
+Você pode explorar mais seus conhecimentos sobre o Set na documentação.
+-> https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Set
+
+O que aprendemos?
+PRÓXIMA ATIVIDADE
+
+Nesta aula vimos:
+Como utilizar o filter e o reduce:
+Aprendemos mais métodos modernos do JavaScript que nos ajudam em situações mais específicas. Utilizamos o filter para criar um array filtrado a partir de um existente e o reduce para acumular valores de um array em um só.
+Como clonar arrays com o spread operator ...:
+Entendemos o problema de referência do JavaScript ao tentar atribuir um array a um novo. Para resolver esse problema, utilizamos o spread operator para espalhar todos os valores de um array em um novo, realizando a clonagem com sucesso.
+Como utilizar a estrutura Set:
+Vimos como criar um Set a partir de um array existente, a fim de remover todas as suas duplicatas. Em seguida, utilizamos o spread operator para converter o Set de volta em um lista.
+
+Neste treinamento, todas as barreiras foram vencidas e você aprofundou ainda mais seus conhecimentos em JavaScript.
+
+Você aprendeu o que são arrays, um tipo de estrutura de dados extremamente importante em programação. Conheceu o conceito principal e como trabalhar com arrays, utilizando métodos nativos do JavaScript como o push() e o splice(); praticou também com outro conceito importantíssimo em programação, os laços de repetição, utilizando o for e métodos do JavaScript como map() e forEach(), além de aprender mais sobre funções e métodos com as chamadas funções callback.
+
+Nossa, quanta coisa legal!
+
+Vamos recapitular o tanto de coisas legais que aprendemos!
+
+No começo do curso, calculamos nossa primeira média, criando nosso primeiro array e vendo como acessar seus valores da forma mais simplificada. Começamos a ver os primeiros métodos e propriedades.
+
+Vimos como utilizar os métodos .push(), que adiciona um novo item ao final, e o .pop(), que remove o último item. Também vimos como separar um array em partes com slice(), utilizamos para obter dois novos arrays a partir de um.
+
+E vimos as diferenças entre os métodos do JS, onde alguns alteram a array original e outros retornam novos arrays. É importante ter isso em mente, sempre consultando a documentação em caso de dúvida.
+
+Vimos como remover e incluir novos elementos em um array com splice(), sendo que esse método permite remover elementos de qualquer posição do array. Vimos como juntar elementos em um único array com concat(); sendo que essa é uma forma facilitada de juntar dois arrays.
+
+Aprendemos a trabalhar com arrays de duas dimensões, também chamados de matrizes. Vimos que uma lista também pode guardar outras listas! Para acessar elementos das listas mais internas, devemos informar primeiro os índices das mais externas e depois os das mais internas, como por exemplo com funcionarios[0][2].
+
+Em seguida, aprendemos sobre os laços de repetição, vimos o for clássico, presente em praticamente toda linguagem de programação. Também utilizamos o for para calcular média e também usamos o for of e o forEach() para calcular a média.
+
+No forEach() começamos a ver métodos de arrays para realizar laços de repetição. Utilizamos o map() para reescrever arrays, fizemos com números e com strings. utilizamos também o filer e o reduce, que são métodos mais modernos que facilitam a resolução dos problemas e você os verá sendo bastante utilizados no mercado.
+
+Por fim, entendemos o problema de referência do JavaScript ao tentar atribuir um array a um novo. Para resolver esse problema, utilizamos o spread operator para espalhar todos os valores de um array em um novo, realizando a clonagem com sucesso.
+
+Também vimos como utilizar uma estrutura de dados mais avançada, a estrutura Set. Vimos como criar um Set a partir de um array existente, a fim de remover todas as suas duplicatas. Em seguida, utilizamos o spread operator para converter o Set de volta em uma lista.
+
+Aprendemos muita coisa! Vimos desde problemas simples aos mais complexos.
+
+Não esqueça de conferir as atividades e exercícios que deixamos para você. Eles são muito importantes para consolidar o seu conhecimento!
+
+Esse curso é uma introdução para seus estudos sobre arrays. Você ainda aprenderá muito sobre eles ao usá-los em projetos reais e praticar ainda mais.
